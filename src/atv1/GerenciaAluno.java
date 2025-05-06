@@ -5,61 +5,6 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class GerenciaAluno {
-
-    public void adicionarAluno(Aluno aluno, ArrayList<Aluno> listaAlunos) {
-        listaAlunos.add(aluno);
-        System.out.println("Aluno " + aluno.getNome() + " com nota " + aluno.getNota() + " adicionado com sucesso.");
-    }
-
-    public void listarTodosAlunos(ArrayList<Aluno> listaAlunos) {
-        for (Aluno aluno : listaAlunos) {
-            System.out.println("Aluno: " + aluno.getNome() + " - Nota: " + aluno.getNota());
-        }
-    }
-
-    public void removerAluno(String nome, ArrayList<Aluno> listaAlunos) {
-        Iterator<Aluno> iterador = listaAlunos.iterator();
-        while (iterador.hasNext()) {
-            Aluno aluno = iterador.next();
-            if (aluno.getNome().equalsIgnoreCase(nome)) {
-                iterador.remove();
-                System.out.println("Aluno " + nome + " removido.");
-                return;
-            }
-        }
-        System.out.println("Aluno nao encontrado.");
-    }
-
-    public void alterarAluno(String nome, ArrayList<Aluno> listaAlunos, Scanner entrada) {
-        for (int i = 0; i < listaAlunos.size(); i++) {
-            Aluno aluno = listaAlunos.get(i);
-            if (aluno.getNome().equalsIgnoreCase(nome)) {
-                System.out.println("Digite o novo nome:");
-                String novoNome = entrada.next();
-                System.out.println("Digite a nova nota:");
-                double novaNota = entrada.nextDouble();
-                listaAlunos.set(i, new Aluno(novoNome, novaNota));
-                System.out.println("Aluno atualizado.");
-                return;
-            }
-        }
-        System.out.println("Aluno nao encontrado.");
-    }
-
-    public void calcularMediaNotas(ArrayList<Aluno> listaAlunos) {
-        if (listaAlunos.isEmpty()) {
-            System.out.println("Nenhum aluno cadastrado.");
-            return;
-        }
-
-        double soma = 0;
-        for (Aluno aluno : listaAlunos) {
-            soma += aluno.getNota();
-        }
-        double media = soma / listaAlunos.size();
-        System.out.println("Madia das notas: " + media);
-    }
-
     public static void main(String[] args) {
         GerenciaAluno gerencia = new GerenciaAluno();
         ArrayList<Aluno> listaAlunos = new ArrayList<>();
@@ -119,5 +64,59 @@ public class GerenciaAluno {
 
         entrada.close();
     }
+    public void adicionarAluno(Aluno aluno, ArrayList<Aluno> listaAlunos) {
+        listaAlunos.add(aluno);
+        System.out.println("Aluno " + aluno.getNome() + " com nota " + aluno.getNota() + " adicionado com sucesso.");
+    }
+
+    public void listarTodosAlunos(ArrayList<Aluno> listaAlunos) {
+        for (Aluno aluno : listaAlunos) {
+            System.out.println("Aluno: " + aluno.getNome() + " - Nota: " + aluno.getNota());
+        }
+    }
+
+    public void removerAluno(String nome, ArrayList<Aluno> listaAlunos) {
+        Iterator<Aluno> iterador = listaAlunos.iterator();
+        while (iterador.hasNext()) {
+            Aluno aluno = iterador.next();
+            if (aluno.getNome().equalsIgnoreCase(nome)) {
+                iterador.remove();
+                System.out.println("Aluno " + nome + " removido.");
+                return;
+            }
+        }
+        System.out.println("Aluno nao encontrado.");
+    }
+
+    public void alterarAluno(String nome, ArrayList<Aluno> listaAlunos, Scanner entrada) {
+        for (int i = 0; i < listaAlunos.size(); i++) {
+            Aluno aluno = listaAlunos.get(i);
+            if (aluno.getNome().equalsIgnoreCase(nome)) {
+                System.out.println("Digite o novo nome:");
+                String novoNome = entrada.next();
+                System.out.println("Digite a nova nota:");
+                double novaNota = entrada.nextDouble();
+                listaAlunos.set(i, new Aluno(novoNome, novaNota));
+                System.out.println("Aluno atualizado.");
+                return;
+            }
+        }
+        System.out.println("Aluno nao encontrado.");
+    }
+
+    public void calcularMediaNotas(ArrayList<Aluno> listaAlunos) {
+        if (listaAlunos.isEmpty()) {
+            System.out.println("Nenhum aluno cadastrado.");
+            return;
+        }
+
+        double soma = 0;
+        for (Aluno aluno : listaAlunos) {
+            soma += aluno.getNota();
+        }
+        double media = soma / listaAlunos.size();
+        System.out.println("Madia das notas: " + media);
+    }
 }
+
 

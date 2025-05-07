@@ -1,9 +1,6 @@
 package Atv3;
-
-import Atv2.Compromisso;
-import atv1.Aluno;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,6 +27,7 @@ public class GerenciaTarefas {
                     String Desc = entrada.nextLine();
                     System.out.println("digite a prioridade");
                     int Prioridade = entrada.nextInt();
+                    entrada.nextLine();
                     System.out.println("coloque o status (pendente ou concluída)");
                     String status = entrada.nextLine();
                     Tarefas novo = new  Tarefas(Desc,Prioridade,status);
@@ -46,8 +44,12 @@ public class GerenciaTarefas {
                     gerenciador.alterarTarefa(nomeAlterar,tarefasList,entrada);
                     break;
                 case 4:
+                    System.out.print("Nome da Tarefa a remover: ");
+                    String nomeRemover = entrada.next();
+                    gerenciador.remover(nomeRemover, tarefasList);
                     break;
                 case 5:
+                    gerenciador.listar(tarefasList);
                     break;
             }
         }while (true);
@@ -83,6 +85,28 @@ public class GerenciaTarefas {
                 return;
             }
         }
-        System.out.println("Aluno nao encontrado.");
+        System.out.println("Tarefa nao encontrado.");
+    }
+    public void remover(String nome,List<Tarefas> tarefasList) {
+        Iterator<Tarefas> iterador = tarefasList.iterator();
+        while (iterador.hasNext()) {
+            Tarefas tarefas = iterador.next();
+            if (tarefas.getDescricao().equalsIgnoreCase(nome)) {
+                iterador.remove();
+                System.out.println("Tarefa " + nome + " removido.");
+                return;
+            }
+        }
+        System.out.println("Tarefa nao encontrado.");
+    }
+    public void listar(List<Tarefas> listaTarefas) {
+        if (listaTarefas.isEmpty()) {
+            System.out.println("Nenhum Tarefa cadastrado.");
+            return;
+        }
+
+        for (Tarefas tarefas : listaTarefas) {
+            System.out.println("Tarefa: " + tarefas.getDescricao() + "\n prioridade: " + tarefas.getPrioridade() + "\n status:" + tarefas.getStatus());
+        }
     }
 }

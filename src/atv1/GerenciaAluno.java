@@ -117,6 +117,7 @@ public class GerenciaAluno {
         double media = soma / listaAlunos.size();
         System.out.println("Madia das notas: " + media);
     }
+
 }
 
 

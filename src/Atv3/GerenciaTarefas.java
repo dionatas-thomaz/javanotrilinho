@@ -1,5 +1,8 @@
 package Atv3;
 
+import Atv2.Compromisso;
+import atv1.Aluno;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,16 +27,23 @@ public class GerenciaTarefas {
             switch (opcao) {
                 case 1:
                     System.out.println("digite a descrição: ");
-                    String NovaDesc = entrada.nextLine();
+                    String Desc = entrada.nextLine();
                     System.out.println("digite a prioridade");
-                    int NovaPrioridade = entrada.nextInt();
+                    int Prioridade = entrada.nextInt();
                     System.out.println("coloque o status (pendente ou concluída)");
                     String status = entrada.nextLine();
-                    Tarefas novo = new  Tarefas(NovaDesc,NovaPrioridade,status);
+                    Tarefas novo = new  Tarefas(Desc,Prioridade,status);
+                    gerenciador.adicionarTarefas(tarefasList, novo);
                     break;
                 case 2:
+                    System.out.print("digite o nome da tarefa: ");
+                    String busca = entrada.nextLine();
+                    gerenciador.buscar(tarefasList, busca);
                     break;
                 case 3:
+                    System.out.print("Nome da tarefa a alterar: ");
+                    String nomeAlterar = entrada.next();
+                    gerenciador.alterarTarefa(nomeAlterar,tarefasList,entrada);
                     break;
                 case 4:
                     break;
@@ -41,5 +51,38 @@ public class GerenciaTarefas {
                     break;
             }
         }while (true);
+    }
+    public void adicionarTarefas(List<Tarefas> lista, Tarefas tarefas) {
+        lista.add(tarefas);
+        System.out.println("Tarefa adicionado com sucesso!");
+    }
+    public void buscar(List<Tarefas> lista, String Busca) {
+        boolean encontrado = false;
+        for (Tarefas t : lista) {
+            if (t.getDescricao().equals(Busca)) {
+                System.out.println("Tarefa: "+t.getDescricao() + " \nPrioridade:  " + t.getDescricao());
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Tarefa não encontrado");
+        }
+    }
+    public void alterarTarefa(String nome,List<Tarefas> listaTarefas, Scanner entrada) {
+        for (int i = 0; i < listaTarefas.size(); i++) {
+            Tarefas tarefas = listaTarefas.get(i);
+            if (tarefas.getDescricao().equalsIgnoreCase(nome)) {
+                System.out.println("Digite o novo nome:");
+                String novoNome = entrada.next();
+                System.out.println("Digite a nova Prioridade:");
+                int novaPrioridade = entrada.nextInt();
+                System.out.println("qual o novo status (pendente ou concluída)");
+                String novoStatus = entrada.nextLine();
+                listaTarefas.set(i, new Tarefas(novoNome,novaPrioridade,novoStatus));
+                System.out.println("Tarefa atualizado.");
+                return;
+            }
+        }
+        System.out.println("Aluno nao encontrado.");
     }
 }
